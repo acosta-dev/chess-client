@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import axios from 'axios';
 import io from 'socket.io-client';
+import {openSocket} from 'socket.io-client';
 import Chess from 'chess.js';
 import Chessboard from 'chessboardjsx';
 import { URL } from '../Utils/Config';
@@ -20,7 +21,9 @@ import chess_move_sound from '../../assets/chess_move_sound.mp3';
 -when any player moves the piece, after validating that move another socket event is emitted for the move.
 */
 
-let socket = io(URL);
+// let socket = io(URL);
+
+const socket = openSocket(URL, {transports: ['websocket']});
 
 function Game(props) {
     const [fen, setFen] = useState(
